@@ -22,64 +22,53 @@ import javax.persistence.TemporalType;
 import pm.eight.enums.WeekFrequencyType;
 
 @Entity
-@Table(name="comics")
+@Table(name = "comics")
 public class Comic implements Serializable {
-	
+
 	private static final long serialVersionUID = 3915902099036361635L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
-	
-	@Column(name = "title", length=255, nullable=false)
+
+	@Column(name = "title", length = 255, nullable = false)
 	private String title;
-	
-	@Column(name = "thumbnail_uri", length=255, nullable=false)
+
+	@Column(name = "thumbnail_uri", length = 255, nullable = false)
 	private String thumbnailUri;
-	
-	@Column(name = "link", length=255, nullable=false)
+
+	@Column(name = "link", length = 255, nullable = false)
 	private String link;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "comic", cascade=CascadeType.ALL)
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "comic", cascade = CascadeType.ALL)
 	private Set<Episode> episodes = new HashSet<Episode>(0);
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.comic", cascade=CascadeType.ALL)
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.comic", cascade = CascadeType.ALL)
 	private Set<AuthorComic> authorComics = new HashSet<AuthorComic>(0);
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "week_frequency_code", length = 20, nullable = false)
 	private WeekFrequencyType weekFrequencyCode;
-	
-	@Column(name = "monday", nullable=true)
-	private Boolean monday;
-	
-	@Column(name = "tuesday", nullable=true)
-	private Boolean tuesday;
-	
-	@Column(name = "wednesday", nullable=true)
-	private Boolean wednesday;
-	
-	@Column(name = "thursday", nullable=true)
-	private Boolean thursday;
-	
-	@Column(name = "friday", nullable=true)
 
-	private Boolean friday;
-	
-	@Column(name = "saturday", nullable=true)
-	private Boolean saturday;
-	
-	@Column(name = "sunday", nullable=true)
-	private Boolean sunday;
-	
+	@Column(name = "week", nullable = true)
+	private String week;
+
 	@Temporal(TemporalType.DATE)
-	@Column(name = "create_date", nullable=true)
+	@Column(name = "create_date", nullable = true)
 	private Date createDate;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name = "modify_date", nullable=true)
+	@Column(name = "modify_date", nullable = true)
 	private Date modifyDate;
+
+	public Comic(String title, String week, String link, String thumbnailUri) {
+		this.title = title;
+		this.week = week;
+		this.link = link;
+		this.thumbnailUri = thumbnailUri;
+
+	}
 
 	public Long getId() {
 		return id;
@@ -137,60 +126,16 @@ public class Comic implements Serializable {
 		this.weekFrequencyCode = weekFrequencyCode;
 	}
 
-	public Boolean getMonday() {
-		return monday;
+	public String getWeek() {
+		return week;
 	}
 
-	public void setMonday(Boolean monday) {
-		this.monday = monday;
+	public void setWeek(String week) {
+		this.week = week;
 	}
 
-	public Boolean getTuesday() {
-		return tuesday;
-	}
-
-	public void setTuesday(Boolean tuesday) {
-		this.tuesday = tuesday;
-	}
-
-	public Boolean getWednesday() {
-		return wednesday;
-	}
-
-	public void setWednesday(Boolean wednesday) {
-		this.wednesday = wednesday;
-	}
-
-	public Boolean getThursday() {
-		return thursday;
-	}
-
-	public void setThursday(Boolean thursday) {
-		this.thursday = thursday;
-	}
-
-	public Boolean getFriday() {
-		return friday;
-	}
-
-	public void setFriday(Boolean friday) {
-		this.friday = friday;
-	}
-
-	public Boolean getSaturday() {
-		return saturday;
-	}
-
-	public void setSaturday(Boolean saturday) {
-		this.saturday = saturday;
-	}
-
-	public Boolean getSunday() {
-		return sunday;
-	}
-
-	public void setSunday(Boolean sunday) {
-		this.sunday = sunday;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public Date getCreateDate() {
@@ -208,6 +153,5 @@ public class Comic implements Serializable {
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
-
 
 }
