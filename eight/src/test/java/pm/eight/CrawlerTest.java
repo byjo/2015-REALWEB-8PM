@@ -21,7 +21,7 @@ import org.jsoup.select.Elements;
 import org.junit.Before;
 import org.junit.Test;
 
-import pm.eight.model.Comic;
+import pm.eight.domain.Comic;
 import pm.eight.util.UUIDGenerator;
 
 public class CrawlerTest {
@@ -58,6 +58,7 @@ public class CrawlerTest {
 			// String comicImgUrl = getComicUrl(comicTitle);
 
 			String comicImgUrl = saveImage(elImage.attr("src"));
+			
 			Comic comic = new Comic(comicTitle, comicWeek, comicLink,
 					comicImgUrl);
 			comics.add(comic);
