@@ -39,6 +39,7 @@ public class ImageProcessingTest {
 //		File outputfile = new File(targetPath);
 //		ImageIO.write(b, "jpg", outputfile);
 //	}
+
 	@Test
 	public void testSTREAM() throws Exception {
 		InputStream is = url.openStream();
@@ -54,5 +55,5 @@ public class ImageProcessingTest {
 		is.close();
 		os.close();
 	}
-
+	
 }

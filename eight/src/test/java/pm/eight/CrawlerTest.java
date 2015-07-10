@@ -25,43 +25,38 @@ import pm.eight.domain.Comic;
 import pm.eight.util.UUIDGenerator;
 
 public class CrawlerTest {
-	List<Comic> comics;
+	List<Comic> memoryComicsTable;
 	@Before
 	public void setup() {
-		comics = new LinkedList<Comic>();
+		memoryComicsTable = new LinkedList<Comic>();
 	}
 
 	@Test
-	public void test() throws IOException {
+	public void getThumbImage() throws IOException {
 		Document doc = Jsoup.connect(
 				"http://comic.naver.com/webtoon/weekday.nhn").get();
-		Elements elUls = doc.select(".list_area ul");
-		// Elements elAll = elUls.select("li > div.thumb > a");
-		// Elements elImages = elAll.select("img[src]");
-		// Elements elImages =
-		// doc.select(".list_area ul li > div.thumb a img[src]");
-
+		Elements comicsUls = doc.select(".list_area ul");
+		System.out.println(comicsUls);
 		List<String> list = Arrays.asList("MON", "THU", "WED", "THU", "FRI",
 				"SAT", "SUN");
 
 		for (int i = 0; i < list.size(); i++) {
-			put(elUls.select("li > div.thumb > a"), list.get(i));
+			makeComicFromComicsUl(comicsUls.get(i).select("li > div.thumb > a"), list.get(i));
 		}
 
 	}
 
-	private void put(Elements elAll, String comicWeek) {
-		for (Element elOne : elAll) {
-			Element elImage = elOne.select("img[src]").first();
-			String comicLink = elOne.attr("href");
+	private void makeComicFromComicsUl(Elements comicsUls, String comicWeek) {
+		for (Element comicsUl : comicsUls) {
+			Element elImage = comicsUl.select("img[src]").first();
+			String comicLink = comicsUl.attr("href");
 			String comicTitle = elImage.attr("title");
-			// String comicImgUrl = getComicUrl(comicTitle);
-
+			
 			String comicImgUrl = saveImage(elImage.attr("src"));
 			
 			Comic comic = new Comic(comicTitle, comicWeek, comicLink,
 					comicImgUrl);
-			comics.add(comic);
+			memoryComicsTable.add(comic);
 		}
 	}
 
@@ -71,7 +66,7 @@ public class CrawlerTest {
 		DateFormat df = new SimpleDateFormat("yyMMdd", Locale.KOREAN);
 		String beautifulToday = df.format(new Date());
 		String extention = linkHref.substring(exIndex + 1);
-		System.out.println();
+
 		String targetPath;
 		if (extention.length() == 3) {
 			targetPath = "resources/images/comic/img-" + beautifulToday + "-"
