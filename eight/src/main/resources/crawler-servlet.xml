@@ -14,11 +14,10 @@
 	<!-- Uncomment and your base-package here: <context:component-scan base-package="org.springframework.samples.web"/> -->
 
 	<mvc:annotation-driven />
-	<context:component-scan base-package="controller"></context:component-scan>
-	<context:component-scan base-package="model"></context:component-scan>
+	<context:component-scan base-package="pm.eight.*"></context:component-scan>
 	<context:property-placeholder
 		location="classpath:local-properties/database.properties" />
-	<jpa:repositories base-package="model" />
+	<jpa:repositories base-package="pm.eight.repository" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -52,23 +51,26 @@
 		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
 	</bean>
 
-	<tx:annotation-driven />
 	<!-- 하이버네이트 트랜잭션을 위한 TransactionManager -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-        <property name="showSql" value="true"/>
-        <property name="generateDdl" value="true"/>
-        <property name="database" value="MYSQL"/>
-    </bean>
-	
-	 <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
-        <!-- spring based scanning for entity classes>-->
-        <property name="packagesToScan" value="pm.eight.domain"/>
-    </bean>    
- </beans>
+	<bean id="jpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="showSql" value="true" />
+		<property name="generateDdl" value="true" />
+		<property name="database" value="MYSQL" />
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+		<!-- spring based scanning for entity classes> -->
+		<property name="packagesToScan" value="pm.eight.domain" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>

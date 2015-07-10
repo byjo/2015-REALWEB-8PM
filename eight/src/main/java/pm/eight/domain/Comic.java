@@ -27,6 +27,17 @@ public class Comic implements Serializable {
 
 	private static final long serialVersionUID = 3915902099036361635L;
 
+	public Comic(){
+		
+	}
+	
+	public Comic(String link,String thumbnail_uri,String title,WeekFrequencyType week_frequency_code) {
+		this.link = link;
+		this.thumbnailUri = thumbnail_uri;
+		this.title = title;
+		this.weekFrequencyCode = week_frequency_code;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
