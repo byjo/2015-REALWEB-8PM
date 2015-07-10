@@ -165,4 +165,13 @@ public class Comic implements Serializable {
 		this.modifyDate = modifyDate;
 	}
 
+	@Override
+	public String toString() {
+		return "Comic [id=" + id + ", title=" + title + ", thumbnailUri="
+				+ thumbnailUri + ", link=" + link + ", weekFrequencyCode="
+				+ weekFrequencyCode + ", week=" + week + "]";
+	}
+
+	
+	
 }

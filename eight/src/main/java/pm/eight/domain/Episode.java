@@ -72,6 +72,10 @@ public class Episode implements Serializable {
 	@Column(name = "modify_date", nullable=true)
 	private Date modifyDate;
 
+	public Episode(Comic comic) {
+		this.comic = comic;
+	}
+
 	public Long getId() {
 		return id;
 	}
