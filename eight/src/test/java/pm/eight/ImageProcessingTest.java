@@ -2,20 +2,11 @@ package pm.eight;
 
 import static org.junit.Assert.*;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Iterator;
-
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
 
 import org.junit.Before;
 import org.junit.Test;

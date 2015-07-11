@@ -1,25 +1,50 @@
 package pm.eight.evaluator;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import pm.eight.domain.Comic;
-import pm.eight.enums.WeekFrequencyType;
-import pm.eight.repository.ComicRepository;
+import pm.eight.domain.Episode;
+import pm.eight.dto.EpisodePageDTO;
+import pm.eight.enums.WebtoonStateType;
+import pm.eight.repository.EpisodeRepository;
+import pm.eight.util.DateManager;
+import pm.eight.util.WebtoonCrawler;
 
 @Component
 public class DiligenceEvaluator {
 	
 	@Autowired
-	ComicRepository comicRepository;
+	EpisodeRepository episodeRepository;
+
+	@Autowired
+	DateManager dateManager;
 	
-	public void setComicRepository(ComicRepository comicRepository) {
-		this.comicRepository = comicRepository;
+	@Autowired
+	WebtoonCrawler crawler;
+
+	public void evaluateDiligence(Episode episode) throws IOException {
+		EpisodePageDTO episodePageDTO = crawler.crawlEpisodePage("episodeLink");
+
+		if (isOnTime(episodePageDTO)) {
+			episode.setWebtookStateCode(WebtoonStateType.PUBLISH);
+		} else {
+//			episode.setDelayTime(delayTime);
+//			TODO: delayTime 계산법 생각해야함			
+			episode.setWebtookStateCode(WebtoonStateType.DELAY);
+		}
+
+		episode.setLink(episodePageDTO.getLink());
+		episode.setAmount(episodePageDTO.getAmount());
+
+		episodeRepository.save(episode);
 	}
 
-	public Comic evaluateDiligence(){
-		comicRepository.save(new Comic("link","thum_url", "title", WeekFrequencyType.EVEN));
-		Comic comic = comicRepository.find((long)1);
-		return comic;
+	private boolean isOnTime(EpisodePageDTO episodePageDTO) {
+		return episodePageDTO.getPublishingDay() == dateManager.getYesterday();
 	}
+	
 }
+
+
