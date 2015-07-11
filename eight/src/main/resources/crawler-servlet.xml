@@ -32,7 +32,6 @@
 	</bean>
 
 	<!-- DB접근을 위한 DataSource -->
-
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName">

@@ -18,13 +18,13 @@ import pm.eight.listManager.EpisodeListManager;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/test-applicationContext.xml")
 public class EpisodeListManagerTest {
-
 	private static final Logger logger = LoggerFactory.getLogger(EpisodeListManagerTest.class);
 	@Autowired
 	private EpisodeListManager manager;
 	
+//TODO: dateManager 사용하게되면 삭제, private method 테스트 이슈
 	@Test
-	public void getDayTest() throws Exception {
+	public void getDayOfWeekTest() throws Exception {
 		Class<?> clazz = manager.getClass();
 		Object obj = clazz.newInstance();
 		
