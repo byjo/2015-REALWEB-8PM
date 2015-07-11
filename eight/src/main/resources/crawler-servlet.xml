@@ -81,5 +81,9 @@
 	<util:list id="episodeList">
 		<value>test</value>
 	</util:list>
-
+	
+	<bean id="publishChecker" class="checker.PublishChecker">
+		<property name="episodeList" ref="episodeList" />
+	</bean>
+	
 </beans>
