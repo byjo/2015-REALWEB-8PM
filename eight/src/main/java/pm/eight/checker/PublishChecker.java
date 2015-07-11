@@ -31,12 +31,12 @@ public class PublishChecker {
 	private final String LIST_SELECTOR = ".col_selected ul li > div.thumb > a";
 	
 	public void publishCheck () throws IOException {
-		Map<String, WebtoonStateType> epStateList = getEpisodeStatusList();
+		Map<String, WebtoonStateType> epStateList = getEpisodeStateList();
 		for(Episode episode : episodeList) {
 			//연재 상태이면 evaluator에게, 휴재상태이면 
 			WebtoonStateType state = epStateList.get(episode.getTitle());
 			if(state == WebtoonStateType.PUBLISH) {
-				diligenceEvaluator.evaluate(episode);
+				diligenceEvaluator.evaluateDiligence(episode);
 				episodeList.remove(episode);
 				continue;
 			}
@@ -48,7 +48,8 @@ public class PublishChecker {
 		}
 	}
 	
-	Map<String, WebtoonStateType> getEpisodeStatusList () throws IOException {
+	Map<String, WebtoonStateType> getEpisodeStateList () throws IOException {
+		//indent가 깊다. 리팩토링 필요
 		Document doc = null;
 		doc = Jsoup.connect(PUBLISH_CHECKER_URI).get();
 		Elements episodeInfoList = doc.select(LIST_SELECTOR); //이 결과를 주입받을 수 있어서 테스트하기 쉬우면 좋겠다...
@@ -73,8 +74,4 @@ public class PublishChecker {
 		}
 		return episodeStateList;
 	}
-	
-	
-	
-
 }
