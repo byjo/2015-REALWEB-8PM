@@ -14,12 +14,14 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import pm.eight.domain.Comic;
 import pm.eight.domain.Episode;
 import pm.eight.enums.WebtoonStateType;
 import pm.eight.evaluator.DiligenceEvaluator;
 
+@Component
 public class PublishChecker {
 	//@Autowired
 	private List<Episode> episodeList; //autowired가 잘 안됨...크론으로 스케쥴링 돌 때, episodeList가 size가 0보다 클 때만 run하게 할 수 있나?

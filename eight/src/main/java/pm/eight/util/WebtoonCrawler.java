@@ -12,9 +12,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
 import pm.eight.dto.EpisodePageDTO;
 
+@Component
 public class WebtoonCrawler {
 
 	private static final String REFERER = "http://imgcomic.naver.com/";
