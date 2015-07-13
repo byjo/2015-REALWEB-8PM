@@ -47,6 +47,8 @@
 		<!-- support -->
 		<org.apache.commons.commons-lang3.version>3.4</org.apache.commons.commons-lang3.version>
 		<com.google.guava.version>18.0</com.google.guava.version>
+		<!-- spring-batch -->
+		<spring.batch.version>3.0.4.RELEASE</spring.batch.version>
 
 		<tomcat.version>8.0.20</tomcat.version>
 
@@ -223,7 +225,7 @@
 			<version>${com.google.guava.version}</version>
 		</dependency>
 
-	<dependency>
+		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-core</artifactId>
 			<version>${tomcat.version}</version>
@@ -258,6 +260,17 @@
 			<artifactId>tomcat-jsp-api</artifactId>
 			<version>${tomcat.version}</version>
 			<scope>provided</scope>
+		</dependency>
+		<!-- spring batch -->
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-core</artifactId>
+			<version>${spring.batch.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-infrastructure</artifactId>
+			<version>${spring.batch.version}</version>
 		</dependency>
 	</dependencies>
 

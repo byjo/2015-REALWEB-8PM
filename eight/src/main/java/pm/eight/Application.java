@@ -2,12 +2,15 @@ package pm.eight;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 
 public class Application {
 	
+	@SuppressWarnings("resource")
 	public static void main(String[] args) {
-		String springConfig = "applicationContext.xml";
-		ApplicationContext context = new ClassPathXmlApplicationContext(springConfig);
+		String springConfig = "batch-applicationContext.xml";
+		new GenericXmlApplicationContext(springConfig);
+//		new ClassPathXmlApplicationContext(springConfig);
 	}
 }
