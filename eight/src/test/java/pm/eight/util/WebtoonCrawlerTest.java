@@ -11,6 +11,7 @@ import pm.eight.dto.EpisodePageDTO;
 
 public class WebtoonCrawlerTest {
 
+	private static final String TARGETURL = "http://comic.naver.com/webtoon/detail.nhn?titleId=570503&no=92&weekday=thu";
 	WebtoonCrawler crawler;
 	
 	@Before
@@ -19,10 +20,10 @@ public class WebtoonCrawlerTest {
 	}
 
 	@Test
-	public void test() throws IOException {
-		EpisodePageDTO result = crawler.crawlEpisodePage("http://comic.naver.com/webtoon/detail.nhn?titleId=570503&no=92&weekday=thu");
-		System.out.println(result.getPublishingDay());
-		//TODO: 언제나 테스트 통과하도록 작성해야 함
+	public void crawlEpisodePageTest() throws IOException {
+		EpisodePageDTO episodeDTO = crawler.crawlEpisodePage(TARGETURL);
+		assertEquals("2015.07.08", episodeDTO.getPublishingDay());
+		assertEquals("47502", episodeDTO.getAmount());
 	}
 
 }

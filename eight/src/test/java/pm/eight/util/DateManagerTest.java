@@ -2,6 +2,7 @@ package pm.eight.util;
 
 import static org.junit.Assert.*;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,12 +13,13 @@ public class DateManagerTest {
 	@Before
 	public void setup(){
 		dateManager= new DateManager();
+		dateManager.setDate(LocalDate.parse("2015-07-13")); // 2015년4월17일23시23분50초);
 	}
 	
 	@Test
 	public void getDayOfWeekTest() throws Exception {
 		String dayOfWeek = dateManager.getDayOfWeek();
-		assertEquals("Sat", dayOfWeek);
+		assertEquals("Mon", dayOfWeek);
 	}
 	
 	@Test
@@ -29,7 +31,7 @@ public class DateManagerTest {
 	@Test
 	public void getFormmattedDateTest() throws Exception {
 		 String formattedDate= dateManager.getYesterday();
-		 assertEquals("2015.07.10", formattedDate);
+		 assertEquals("2015.07.12", formattedDate);
 	}
 	
 	@Test
