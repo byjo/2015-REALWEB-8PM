@@ -42,9 +42,8 @@
 <!--	<bean id="customWriter" class="com.mkyong.writers.CustomWriter" />  -->
 	<bean id="comicReader" class="pm.eight.reader.ComicReader"/>
 	<bean id="comicWriter" class="pm.eight.writer.ComicWriter"/>
-	
 	<batch:job id="reportJob">
-		<batch:step id="step1">
+		<batch:step id="step1" next="step2">
 			<batch:tasklet>
 				<batch:chunk reader="comicReader" writer="comicWriter"
 					commit-interval="2">
@@ -132,13 +131,13 @@
 
 
 	<bean id="runScheduler" class="pm.eight.RunScheduler" />
-
+	bean
 	<!-- Run every 5 seconds -->
 	<task:scheduled-tasks>
 		<!-- <task:scheduled ref="runScheduler" method="run" fixed-delay="5000" 
 			/> -->
-		<task:scheduled ref="runScheduler" method="run"
-			cron="*/10 * * * * *" />
+		<task:scheduled ref="runScheduler" method="run" cron="* * * * * */1" />
+		<task:scheduled ref="runScheduler2" method="run" cron="* */1 * * * *" />
 	</task:scheduled-tasks>
 
 
