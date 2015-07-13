@@ -1,13 +1,10 @@
 package pm.eight.checker;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,7 +13,6 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import pm.eight.domain.Comic;
 import pm.eight.domain.Episode;
 import pm.eight.enums.WebtoonStateType;
 import pm.eight.evaluator.DiligenceEvaluator;
@@ -38,7 +34,7 @@ public class PublishChecker {
 			//연재 상태이면 evaluator에게, 휴재상태이면 
 			WebtoonStateType state = epStateList.get(episode.getTitle());
 			if(state == WebtoonStateType.PUBLISH) {
-				diligenceEvaluator.evaluateDiligence(episode);
+				diligenceEvaluator.evaluate(episode);
 				episodeList.remove(episode);
 				continue;
 			}
