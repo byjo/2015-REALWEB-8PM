@@ -2,9 +2,14 @@ package pm.eight.dto;
 
 public class ComicPageDTO {
 
+	private String latestEpisodeLink;
+	
 	public String getLatestLink() {
-		// TODO Auto-generated method stub
-		return null;
+		return latestEpisodeLink;
+	}
+	
+	public void setLatestEpisodeLink(String latestEpisodeLink) {
+		this.latestEpisodeLink = latestEpisodeLink;		
 	}
 
 }
