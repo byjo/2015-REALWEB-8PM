@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import pm.eight.domain.Comic;
@@ -24,10 +25,13 @@ public class EpisodeListManager {
 	@Autowired
 	private DateManager dateManager;
 	
+	@Scheduled(cron="0 0 0 * * ?")
 	public void updateEpisodeList() {
 		dateManager.initDate();
+		
 		String day = dateManager.getDayOfWeek();
 		List<Comic> comicList = comicRepository.findByDate(day);
+		
 		for (Comic comic : comicList) {
 			episodeList.add(new Episode(comic));
 		}
@@ -43,6 +47,10 @@ public class EpisodeListManager {
 
 	public DateManager getDateManager() {
 		return dateManager;
+	}
+
+	public void setDateManager(DateManager dateManager) {
+		this.dateManager = dateManager;
 	}
 	
 }
