@@ -171,6 +171,13 @@ public class Episode implements Serializable {
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
+
+	@Override
+	public String toString() {
+		return "Episode [id=" + id + ", webtoonStateCode=" + webtoonStateCode
+				+ ", title=" + title + ", link=" + link + ", comic=" + comic
+				+ "]";
+	}
 	
 	
 
