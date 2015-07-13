@@ -60,9 +60,8 @@ public class Episode implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "episode", cascade=CascadeType.ALL)
 	private Set<Image> images = new HashSet<Image>(0);
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name = "delay_time", nullable=true)
-	private Date delayTime;
+	private long delayTime;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "create_date", nullable=true)
@@ -148,11 +147,11 @@ public class Episode implements Serializable {
 		this.images = images;
 	}
 
-	public Date getDelayTime() {
+	public long getDelayTime() {
 		return delayTime;
 	}
 
-	public void setDelayTime(Date delayTime) {
+	public void setDelayTime(long delayTime) {
 		this.delayTime = delayTime;
 	}
 

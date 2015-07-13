@@ -2,12 +2,12 @@ package pm.eight.dto;
 
 public class EpisodePageDTO {
 	
-	private String publishingDay;
+	private String publishDay;
 	private String link;
 	private long amount;
 	
-	public String getPublishingDay() {
-		return publishingDay;
+	public String getPublishDay() {
+		return publishDay;
 	}
 	public String getLink() {
 		return link;
@@ -15,8 +15,8 @@ public class EpisodePageDTO {
 	public long getAmount() {
 		return amount;
 	}
-	public void setPublishingDay(String publishedDay) {
-		this.publishingDay = publishedDay;
+	public void setPublishingDay(String publishDay) {
+		this.publishDay = publishDay;
 	}
 	public void setLink(String link) {
 		this.link = link;

@@ -1,12 +1,15 @@
 package pm.eight.util;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+
 import java.util.Locale;
 
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDate.Property;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Component;
+
+import pm.eight.enums.WeekFrequencyType;
 
 @Component
 public class DateManager {
@@ -22,18 +25,22 @@ public class DateManager {
 	}
 	
 	public void initDate(){
-		date = new LocalDate().now();
+		date = LocalDate.now();
 	}
 
 	public String getDayOfWeek() {
-		Property dayOfWeekProperty = date.dayOfWeek();
-		return dayOfWeekProperty.getAsShortText(Locale.ENGLISH);
+		DayOfWeek dayOfWeek = date.getDayOfWeek();
+		return dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
 	}
 
 	public String getYesterday() {
 		date = date.minusDays(1);
-		DateTimeFormatter dateForm = DateTimeFormat.forPattern("yyyy.MM.dd"); 
-		String yesterday = date.toString(dateForm);
+		String yesterday = date.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
 		return yesterday;
+	}
+
+	public static LocalDate getExpectedPublishDay(LocalDate previousPublishDay, WeekFrequencyType weekFrequencyType) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

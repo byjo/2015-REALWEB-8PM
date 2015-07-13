@@ -14,14 +14,15 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
+import pm.eight.dto.ComicPageDTO;
 import pm.eight.dto.EpisodePageDTO;
 
 @Component
 public class WebtoonCrawler {
 
 	private static final String REFERER = "http://imgcomic.naver.com/";
-	private static final String USERAGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.65 Safari/537.31";
-	private static final int INITIALHEIGHT = 0;
+	private static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.65 Safari/537.31";
+	private static final int INITIAL_HEIGHT = 0;
 
 	public EpisodePageDTO crawlEpisodePage(String episodeUrl) throws IOException {
 		EpisodePageDTO episodeDTO = new EpisodePageDTO();
@@ -39,7 +40,7 @@ public class WebtoonCrawler {
 	}
 
 	private long getImageTotalHeight(Document doc) throws MalformedURLException, IOException {
-		long totalHeight = INITIALHEIGHT;
+		long totalHeight = INITIAL_HEIGHT;
 		Elements imgTags = doc.select(".wt_viewer img");
 		for(Element imgTag: imgTags){
 			totalHeight+=getImageHeight(imgTag);
@@ -52,8 +53,15 @@ public class WebtoonCrawler {
 		URL url = new URL(src);
 		URLConnection con = url.openConnection();
 		con.setRequestProperty("Referer", REFERER);
-		con.setRequestProperty("User-Agent",USERAGENT);
+		con.setRequestProperty("User-Agent",USER_AGENT);
 		Image image = ImageIO.read(con.getInputStream());
 		return image.getHeight(null);
 	}
+
+	public ComicPageDTO crawlComicPage(String comicPageLink) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 }

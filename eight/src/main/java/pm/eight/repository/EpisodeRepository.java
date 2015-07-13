@@ -9,4 +9,9 @@ import pm.eight.domain.Episode;
 @Repository
 public class EpisodeRepository extends AbstractRepository<Episode> {
 
+	public Episode getLatestEpisodeInDB(long comicId) {
+		
+		return null;
+	}
+
 }
