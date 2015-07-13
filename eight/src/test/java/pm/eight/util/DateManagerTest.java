@@ -14,7 +14,7 @@ public class DateManagerTest {
 	@Before
 	public void setup(){
 		dateManager= new DateManager();
-		dateManager.setDate(LocalDate.parse("2015-07-13")); // 2015년4월17일23시23분50초);
+		dateManager.setDate(LocalDate.parse("2015-07-13"));
 	}
 	
 	@Test
@@ -30,13 +30,13 @@ public class DateManagerTest {
 	}
 	
 	@Test
-	public void getFormmattedDateTest() throws Exception {
+	public void getYesterdayTest() throws Exception {
 		 String formattedDate= dateManager.getYesterday();
 		 assertEquals("2015.07.12", formattedDate);
 	}
 	
 	@Test
-	public void getFormmattedDateFailTest() throws Exception {
+	public void getYesterdayFailTest() throws Exception {
 		 String formattedDate= dateManager.getYesterday();
 		 assertNotEquals("2015.07.17", formattedDate);
 	}

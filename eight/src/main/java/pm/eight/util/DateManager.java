@@ -39,7 +39,7 @@ public class DateManager {
 		return yesterday;
 	}
 
-	public static LocalDate getExpectedPublishDay(LocalDate previousPublishDay, WeekFrequencyType weekFrequencyType) {
+	public LocalDate getExpectedPublishDay(LocalDate previousPublishDay, WeekFrequencyType weekFrequencyType) {
 		// TODO Auto-generated method stub
 		return null;
 	}

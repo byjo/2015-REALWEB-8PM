@@ -12,6 +12,7 @@
 		<property name="hbm2ddl.import_files">/initial-data.sql</property>
 		<property name="show_sql">true</property>
 		<property name="show_format">true</property>
+		<property name="hibernate.enable_lazy_load_no_trans">true</property>
 		<mapping class="pm.eight.domain.Comic"></mapping>
 		<mapping class="pm.eight.domain.Author"></mapping>
 		<mapping class="pm.eight.domain.AuthorComic"></mapping>

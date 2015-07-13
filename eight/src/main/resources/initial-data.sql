@@ -2,3 +2,4 @@ insert into comics(id, link, thumbnail_uri, title, week, week_frequency_code) va
 insert into comics(id, link, thumbnail_uri, title, week, week_frequency_code) values(2, "uri", "uri", "comic2", "Thr", "EVERY");
 insert into comics(id, link, thumbnail_uri, title, week, week_frequency_code) values(3, "uri", "uri", "comic3", "FriSun", "EVERY");
 insert into comics(id, link, thumbnail_uri, title, week, week_frequency_code) values(4, "uri", "uri", "comic1", "ThrFri", "EVERY");
+insert into episodes(title, link, comic_id, webtoon_state_code) values ("title", "link", 1, "PUBLISH");

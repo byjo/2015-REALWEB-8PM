@@ -32,7 +32,6 @@ public class DiligenceEvaluator {
 	WebtoonCrawler crawler;
 
 	public void evaluate(Episode episode) throws IOException {
-		long delayTime;
 		Comic comic = episode.getComic();
 
 		String comicPageLink = comic.getLink();
@@ -41,7 +40,8 @@ public class DiligenceEvaluator {
 		String episodePageLink = comicPageDTO.getLatestLink();
 		EpisodePageDTO episodePageDTO = crawler.crawlEpisodePage(episodePageLink);
 
-		if ((delayTime = getDelayTime(comic)) > 0) {
+		long delayTime;
+		if ((delayTime = calculateDelayTime(comic)) > 0) {
 			episode.setDelayTime(delayTime);
 			episode.setWebtookStateCode(WebtoonStateType.DELAY);
 		} else {
@@ -54,17 +54,16 @@ public class DiligenceEvaluator {
 		episodeRepository.save(episode);
 	}
 
-	private long getDelayTime(Comic comic) {
+	private long calculateDelayTime(Comic comic) {
 		WeekFrequencyType weekFrequencyType = comic.getWeekFrequencyCode();
-
-		LocalDate previousPublishDay = getPreviousPublishDay(comic.getId());
+		LocalDate previousPublishDay = findPreviousPublishDay(comic.getId());
 		LocalDate expectedPublishDay = dateManager.getExpectedPublishDay(previousPublishDay, weekFrequencyType);
 		Duration duration = Duration.between(expectedPublishDay.atTime(0, 0), LocalDateTime.now());
 		return duration.toHours();
 	}
 
-	private LocalDate getPreviousPublishDay(long comicId) {
-		Episode previousEpisode = episodeRepository.getLatestEpisodeInDB(comicId);
+	private LocalDate findPreviousPublishDay(long comicId) {
+		Episode previousEpisode = episodeRepository.findLatestEpisode(comicId);
 		LocalDate previousPublishDay = LocalDateTime
 				.ofInstant(previousEpisode.getCreateDate().toInstant(), ZoneId.systemDefault()).toLocalDate();
 		return previousPublishDay;

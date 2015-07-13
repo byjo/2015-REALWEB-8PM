@@ -5,8 +5,8 @@ import org.junit.Test;
 public class DiligenceEvaluatorTest {
 
 	@Test
-	public void test() {	
-
+	public void getPreviousPublishDayTest() {	
+		
 	
 	}
 

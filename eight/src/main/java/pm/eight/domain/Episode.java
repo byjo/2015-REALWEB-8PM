@@ -29,6 +29,16 @@ public class Episode implements Serializable {
 
 	private static final long serialVersionUID = -7785775055242281530L;
 
+	public Episode(){
+	}
+	
+	public Episode(String title,String link, Comic comic, WebtoonStateType webtoonStateType){
+		this.title = title;
+		this.link = link;
+		this.comic = comic;
+		this.webtoonStateCode = webtoonStateType;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
@@ -61,7 +71,7 @@ public class Episode implements Serializable {
 	private Set<Image> images = new HashSet<Image>(0);
 	
 	@Column(name = "delay_time", nullable=true)
-	private long delayTime;
+	private Long delayTime;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "create_date", nullable=true)
