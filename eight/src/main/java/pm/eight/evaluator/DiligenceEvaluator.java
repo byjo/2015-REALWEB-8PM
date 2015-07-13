@@ -24,7 +24,7 @@ public class DiligenceEvaluator {
 	@Autowired
 	WebtoonCrawler crawler;
 
-	public void evaluateDiligence(Episode episode) throws IOException {
+	public void evaluate(Episode episode) throws IOException {
 		EpisodePageDTO episodePageDTO = crawler.crawlEpisodePage("episodeLink");
 
 		if (isOnTime(episodePageDTO)) {
