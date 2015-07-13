@@ -14,7 +14,7 @@ public class ComicWriter implements ItemWriter<List<Comic>>{
 	public void write(List<? extends List<Comic>> items) throws Exception {
 		for(List<Comic> comics : items ){
 			for(Comic comic : comics){
-				System.out.println(comic);
+//				System.out.println(comic);
 			}
 		}
 	}
