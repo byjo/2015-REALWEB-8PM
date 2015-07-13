@@ -20,6 +20,10 @@ public class DateManager {
 	public void setDate(LocalDate localDate) {
 		this.date = localDate;
 	}
+	
+	public void initDate(){
+		date = new LocalDate().now();
+	}
 
 	public String getDayOfWeek() {
 		Property dayOfWeekProperty = date.dayOfWeek();
