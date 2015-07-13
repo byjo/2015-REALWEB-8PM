@@ -4,22 +4,19 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import pm.eight.domain.Episode;
 import pm.eight.enums.WebtoonStateType;
 import pm.eight.evaluator.DiligenceEvaluator;
 
 @Component
 public class PublishChecker {
-	//@Autowired
+	@Autowired
 	private List<Episode> episodeList; //autowired가 잘 안됨...크론으로 스케쥴링 돌 때, episodeList가 size가 0보다 클 때만 run하게 할 수 있나?
 	
 	@Autowired
@@ -32,7 +29,7 @@ public class PublishChecker {
 		Map<String, WebtoonStateType> epStateList = getEpisodeStateList();
 		for(Episode episode : episodeList) {
 			//연재 상태이면 evaluator에게, 휴재상태이면 
-			WebtoonStateType state = epStateList.get(episode.getTitle());
+			WebtoonStateType state = epStateList.get(episode.getComic().getTitle());
 			if(state == WebtoonStateType.PUBLISH) {
 				diligenceEvaluator.evaluate(episode);
 				episodeList.remove(episode);
