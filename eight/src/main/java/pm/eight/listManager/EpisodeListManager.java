@@ -34,7 +34,7 @@ public class EpisodeListManager {
 		List<Comic> comicList = comicRepository.findByDate(day);
 		
 		for (Comic comic : comicList) {
-			episodeList.add(new Episode(comic));
+			episodeList.add(dateManager.getDate(), new Episode(comic));
 		}
 	}
 
