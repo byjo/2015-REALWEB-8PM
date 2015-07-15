@@ -21,6 +21,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.joda.time.LocalDate;
+
 import pm.eight.enums.WebtoonStateType;
 
 @Entity
@@ -73,6 +75,11 @@ public class Episode implements Serializable {
 	private Date modifyDate;
 
 	public Episode(Comic comic) {
+		this.comic = comic;
+	}
+
+	public Episode(Date date, Comic comic) {
+		this.createDate = date;
 		this.comic = comic;
 	}
 

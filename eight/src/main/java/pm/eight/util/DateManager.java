@@ -1,5 +1,6 @@
 package pm.eight.util;
 
+import java.util.Date;
 import java.util.Locale;
 
 import org.joda.time.LocalDate;
@@ -16,15 +17,23 @@ public class DateManager {
 	public LocalDate getDate() {
 		return date;
 	}
+	
+	public Date getMidnightDate() {
+		return date.toDateTimeAtStartOfDay().toDate();
+	}
 
 	public void setDate(LocalDate localDate) {
 		this.date = localDate;
 	}
 	
 	public void initDate(){
-		date = new LocalDate().now();
+		this.date = new LocalDate().now();
 	}
 
+	public void setTomorrow() {
+		this.date = new LocalDate().plusDays(1);
+	}
+	
 	public String getDayOfWeek() {
 		Property dayOfWeekProperty = date.dayOfWeek();
 		return dayOfWeekProperty.getAsShortText(Locale.ENGLISH);
@@ -36,4 +45,7 @@ public class DateManager {
 		String yesterday = date.toString(dateForm);
 		return yesterday;
 	}
+
+
+
 }

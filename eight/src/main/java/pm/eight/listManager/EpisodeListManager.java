@@ -1,5 +1,6 @@
 package pm.eight.listManager;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -25,16 +26,16 @@ public class EpisodeListManager {
 	@Autowired
 	private DateManager dateManager;
 	
-	//TODO 11시 30분에 만들면서, 각 episode list의 create_time을 다음날 정각으로 맞춤
 	@Scheduled(cron="0 30 22 * * ?")
 	public void updateEpisodeList() {
-		dateManager.initDate();
+		dateManager.setTomorrow();
 		
+		Date date = dateManager.getMidnightDate();
 		String day = dateManager.getDayOfWeek();
 		List<Comic> comicList = comicRepository.findByDate(day);
 		
 		for (Comic comic : comicList) {
-			episodeList.add(dateManager.getDate(), new Episode(comic));
+			episodeList.add(new Episode(date, comic));
 		}
 	}
 

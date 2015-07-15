@@ -2,6 +2,10 @@ package pm.eight.util;
 
 import static org.junit.Assert.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,5 +42,13 @@ public class DateManagerTest {
 	public void getFormmattedDateFailTest() throws Exception {
 		 String formattedDate= dateManager.getYesterday();
 		 assertNotEquals("2015.07.17", formattedDate);
+	}
+	
+	@Test
+	public void convertDateTest() throws Exception {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = format.parse("2015-07-13");
+		Date convertedDate = dateManager.getMidnightDate();
+		assertEquals(date, convertedDate);
 	}
 }

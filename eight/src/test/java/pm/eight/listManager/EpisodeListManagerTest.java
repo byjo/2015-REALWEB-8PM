@@ -26,40 +26,33 @@ import pm.eight.listManager.EpisodeListManager;
 import pm.eight.repository.ComicRepository;
 import pm.eight.util.DateManager;
 
-//@RunWith(MockitoJUnitRunner.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/test-applicationContext.xml")
-//@ContextConfiguration("classpath:/crawler-servlet.xml")
 public class EpisodeListManagerTest {
 	private static final Logger logger = LoggerFactory.getLogger(EpisodeListManagerTest.class);
-
-	@InjectMocks
+	
+	@Autowired
+	private ComicRepository comicRepository;
+	
+	@Autowired
+	private DateManager dateManager;
+	
+	@Autowired
 	private EpisodeListManager manager;
 	
-	@Mock
-	private ComicRepository mockRepository;
-	
-	@Mock
-	private DateManager mockDateManager;
-	
-	
-	@Before
-	public void setup() {
-		MockitoAnnotations.initMocks(this);
-	}
 	
 	@Test
 	public void getListTest() {
-		assertEquals(manager.getEpisodeList().size(), 0);
+		assertEquals(manager.getEpisodeList().size(), 3);
 	}
 	
 	@Test
 	public void updateListTest() {
-		Mockito.when(mockDateManager.getDayOfWeek()).thenReturn("Tue");
+		Mockito.when(dateManager.getDayOfWeek()).thenReturn("Tue");
 		
 		List<Comic> comics = new ArrayList<Comic>();
 		comics.add(new Comic("link", "thumbnail_uri", "example title" ,"EVERY"));
-		Mockito.when(mockRepository.findByDate("Tue")).thenReturn(comics);
+		Mockito.when(comicRepository.findByDate("Tue")).thenReturn(comics);
 		
 		manager.updateEpisodeList();
 		logger.debug("episode list: {}", manager.getEpisodeList().toString());
