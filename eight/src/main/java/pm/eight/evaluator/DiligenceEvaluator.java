@@ -2,9 +2,12 @@ package pm.eight.evaluator;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.Temporal;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -41,7 +44,7 @@ public class DiligenceEvaluator {
 		EpisodePageDTO episodePageDTO = crawler.crawlEpisodePage(episodePageLink);
 
 		long delayTime;
-		if ((delayTime = calculateDelayTime(comic)) > 0) {
+		if ((delayTime = dateManager.calculateDelayTime(comic.getCreateDate())) > 0) {
 			episode.setDelayTime(delayTime);
 			episode.setWebtookStateCode(WebtoonStateType.DELAY);
 		} else {
@@ -52,20 +55,5 @@ public class DiligenceEvaluator {
 		episode.setAmount(episodePageDTO.getAmount());
 
 		episodeRepository.save(episode);
-	}
-
-	private long calculateDelayTime(Comic comic) {
-		WeekFrequencyType weekFrequencyType = comic.getWeekFrequencyCode();
-		LocalDate previousPublishDay = findPreviousPublishDay(comic.getId());
-		LocalDate expectedPublishDay = dateManager.getExpectedPublishDay(previousPublishDay, weekFrequencyType);
-		Duration duration = Duration.between(expectedPublishDay.atTime(0, 0), LocalDateTime.now());
-		return duration.toHours();
-	}
-
-	private LocalDate findPreviousPublishDay(long comicId) {
-		Episode previousEpisode = episodeRepository.findLatestEpisode(comicId);
-		LocalDate previousPublishDay = LocalDateTime
-				.ofInstant(previousEpisode.getCreateDate().toInstant(), ZoneId.systemDefault()).toLocalDate();
-		return previousPublishDay;
 	}
 }

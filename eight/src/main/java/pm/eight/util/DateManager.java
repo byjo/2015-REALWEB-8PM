@@ -1,15 +1,17 @@
 package pm.eight.util;
 
 import java.time.DayOfWeek;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
-
+import java.util.Date;
 import java.util.Locale;
 
 import org.springframework.stereotype.Component;
-
-import pm.eight.enums.WeekFrequencyType;
 
 @Component
 public class DateManager {
@@ -38,9 +40,12 @@ public class DateManager {
 		String yesterday = date.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
 		return yesterday;
 	}
-
-	public LocalDate getExpectedPublishDay(LocalDate previousPublishDay, WeekFrequencyType weekFrequencyType) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public long calculateDelayTime(Date createDate) {
+		Instant createTime = Instant.ofEpochMilli(createDate.getTime());
+		Instant criteriaTime = date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();		
+		Duration duration = Duration.between(criteriaTime, createTime);
+		return duration.toHours();
 	}
+
 }

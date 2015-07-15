@@ -2,7 +2,10 @@ package pm.eight.util;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,13 +34,21 @@ public class DateManagerTest {
 	
 	@Test
 	public void getYesterdayTest() throws Exception {
-		 String formattedDate= dateManager.getYesterday();
-		 assertEquals("2015.07.12", formattedDate);
+		 String yesterDay= dateManager.getYesterday();
+		 assertEquals("2015.07.12", yesterDay);
 	}
 	
 	@Test
 	public void getYesterdayFailTest() throws Exception {
-		 String formattedDate= dateManager.getYesterday();
-		 assertNotEquals("2015.07.17", formattedDate);
+		 String yesterDay= dateManager.getYesterday();
+		 assertNotEquals("2015.07.17", yesterDay);
+	}
+	
+	@Test
+	public void calculateDelayTimeTest() throws ParseException{
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = format.parse("2015-07-15");
+		long delayHour = dateManager.calculateDelayTime(date);
+		assertEquals(48, delayHour);
 	}
 }
