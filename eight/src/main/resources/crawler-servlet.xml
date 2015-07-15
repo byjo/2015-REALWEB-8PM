@@ -78,7 +78,6 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
 	<util:list id="episodeList">
-		<value>test</value>
 	</util:list>
 	<!-- 
 	<bean id="publishChecker" class="PublishChecker">

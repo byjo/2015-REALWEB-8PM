@@ -25,7 +25,8 @@ public class EpisodeListManager {
 	@Autowired
 	private DateManager dateManager;
 	
-	@Scheduled(cron="0 0 0 * * ?")
+	//TODO 11시 30분에 만들면서, 각 episode list의 create_time을 다음날 정각으로 맞춤
+	@Scheduled(cron="0 30 22 * * ?")
 	public void updateEpisodeList() {
 		dateManager.initDate();
 		
