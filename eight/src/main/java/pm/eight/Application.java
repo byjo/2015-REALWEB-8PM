@@ -7,8 +7,7 @@ public class Application {
 	
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
-		String springConfig = "batch-applicationContext.xml";
+		String springConfig = "applicationContext.xml";
 		new GenericXmlApplicationContext(springConfig);
-//		new ClassPathXmlApplicationContext(springConfig);
 	}
 }

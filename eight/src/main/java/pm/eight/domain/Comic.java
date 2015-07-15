@@ -31,11 +31,11 @@ public class Comic implements Serializable {
 		
 	}
 	
-	public Comic(String link,String thumbnail_uri,String title,WeekFrequencyType week_frequency_code) {
-		this.link = link;
-		this.thumbnailUri = thumbnail_uri;
+	public Comic(String title, String week, String link, String thumbnailUri) {
 		this.title = title;
-		this.weekFrequencyCode = week_frequency_code;
+		this.week = week;
+		this.link = link;
+		this.thumbnailUri = thumbnailUri;
 	}
 	
 	@Id
@@ -58,9 +58,9 @@ public class Comic implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.comic", cascade = CascadeType.ALL)
 	private Set<AuthorComic> authorComics = new HashSet<AuthorComic>(0);
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "week_frequency_code", length = 20, nullable = false)
-	private WeekFrequencyType weekFrequencyCode;
+//	@Enumerated(EnumType.STRING)
+//	@Column(name = "week_frequency_code", length = 20, nullable = false)
+//	private WeekFrequencyType weekFrequencyCode;
 
 	@Column(name = "week", nullable = true)
 	private String week;
@@ -73,13 +73,7 @@ public class Comic implements Serializable {
 	@Column(name = "modify_date", nullable = true)
 	private Date modifyDate;
 
-	public Comic(String title, String week, String link, String thumbnailUri) {
-		this.title = title;
-		this.week = week;
-		this.link = link;
-		this.thumbnailUri = thumbnailUri;
 
-	}
 
 	public Long getId() {
 		return id;
@@ -129,13 +123,13 @@ public class Comic implements Serializable {
 		this.authorComics = authorComics;
 	}
 
-	public WeekFrequencyType getWeekFrequencyCode() {
-		return weekFrequencyCode;
-	}
-
-	public void setWeekFrequencyCode(WeekFrequencyType weekFrequencyCode) {
-		this.weekFrequencyCode = weekFrequencyCode;
-	}
+//	public WeekFrequencyType getWeekFrequencyCode() {
+//		return weekFrequencyCode;
+//	}
+//
+//	public void setWeekFrequencyCode(WeekFrequencyType weekFrequencyCode) {
+//		this.weekFrequencyCode = weekFrequencyCode;
+//	}
 
 	public String getWeek() {
 		return week;
@@ -168,10 +162,10 @@ public class Comic implements Serializable {
 	@Override
 	public String toString() {
 		return "Comic [id=" + id + ", title=" + title + ", thumbnailUri="
-				+ thumbnailUri + ", link=" + link + ", weekFrequencyCode="
-				+ weekFrequencyCode + ", week=" + week + "]";
+				+ thumbnailUri + ", link=" + link + ", episodes=" + episodes
+				+ ", authorComics=" + authorComics + ", week=" + week
+				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate
+				+ "]";
 	}
-
-	
 	
 }
