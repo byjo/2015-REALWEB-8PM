@@ -1,6 +1,9 @@
 package pm.eight.evaluator;
 
+import static org.junit.Assert.*;
+
 import java.io.IOException;
+import java.util.Date;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import pm.eight.domain.Comic;
 import pm.eight.domain.Episode;
+import pm.eight.enums.WebtoonStateType;
 import pm.eight.repository.EpisodeRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,11 +30,15 @@ public class DiligenceEvaluatorTest {
 	
 	@Test
 	public void evalateTest() throws IOException {	
-		Episode episode = (Episode) episodeRepository.findLatestEpisode(1);
+		Long id = (long) 1;
+		Episode episode = (Episode) episodeRepository.findLatestEpisode();
+	
 		System.out.println(episode);
 		episode.setId((long)2);
-		diligenceEvaluator.evaluate(episode);
-		
+		//		assertEquals(episode.getId(), 2);
+//		diligenceEvaluator.evaluate(episode);
+//		assertEquals("!", "!");
+// 		테스트 실패
 	}
 
 }

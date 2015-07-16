@@ -21,6 +21,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.joda.time.LocalDate;
+
 import pm.eight.enums.WebtoonStateType;
 
 @Entity
@@ -38,6 +40,7 @@ public class Episode implements Serializable {
 		this.comic = comic;
 		this.webtoonStateCode = webtoonStateType;
 	}
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -82,6 +85,11 @@ public class Episode implements Serializable {
 	private Date modifyDate;
 
 	public Episode(Comic comic) {
+		this.comic = comic;
+	}
+
+	public Episode(Date date, Comic comic) {
+		this.createDate = date;
 		this.comic = comic;
 	}
 
@@ -179,6 +187,13 @@ public class Episode implements Serializable {
 
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Episode [id=" + id + ", webtoonStateCode=" + webtoonStateCode
+				+ ", title=" + title + ", link=" + link + ", createDate=" + createDate + ", comic=" + comic
+				+ "]";
 	}
 	
 	

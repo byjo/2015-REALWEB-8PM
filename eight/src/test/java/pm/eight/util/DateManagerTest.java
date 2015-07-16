@@ -7,6 +7,10 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,6 +53,14 @@ public class DateManagerTest {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = format.parse("2015-07-15");
 		long delayHour = dateManager.calculateDelayTime(date);
-		assertEquals(48, delayHour);
+		assertEquals(24, delayHour);
+	}
+	
+	@Test
+	public void convertDateTest() throws Exception {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = format.parse("2015-07-13");
+		Date convertedDate = dateManager.getMidnightDate();
+		assertEquals(date, convertedDate);
 	}
 }

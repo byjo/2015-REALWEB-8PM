@@ -78,11 +78,26 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
 	<util:list id="episodeList">
-		<value>test</value>
 	</util:list>
-	<!-- 
-	<bean id="publishChecker" class="PublishChecker">
-		<property name="episodeList" ref="episodeList" />
-	</bean> -->
 	
+	<!--Trigger for cronJobs-->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="cronJOB1"/>
+            </list>
+        </property>
+    </bean>
+ 
+    <!--CronJobs Defined-->
+    <bean id="cronJOB1" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="step2" />
+        <!-- 매일 11시부터 새벽 5시까지, 매분 30초에 실행 -->
+        <property name="cronExpression" value="18 * 14-24,0-5 * * ?" />
+    </bean>
+ 
+    <!--Cron Task Defined-->
+    <bean id="step2" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="pm.eight.checker.PublishChecker" />
+    </bean>
 </beans>

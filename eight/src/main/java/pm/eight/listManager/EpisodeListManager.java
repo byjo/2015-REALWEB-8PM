@@ -1,18 +1,19 @@
 package pm.eight.listManager;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import pm.eight.domain.Comic;
 import pm.eight.domain.Episode;
 import pm.eight.repository.ComicRepository;
+import pm.eight.util.DateManager;
 
 @Component
 public class EpisodeListManager {
@@ -23,24 +24,37 @@ public class EpisodeListManager {
 	@Autowired
 	private ComicRepository comicRepository;
 	
-	public void listUpdate() {
-		String day = getDay();
+	@Autowired
+	private DateManager dateManager;
+	
+	@Scheduled(cron="0 15 14 * * ?")
+	public void updateEpisodeList() {
+		System.out.println("Q!!!!");
+		dateManager.setTomorrow();
+		
+		Date date = dateManager.getMidnightDate();
+		String day = dateManager.getDayOfWeek();
 		List<Comic> comicList = comicRepository.findByDate(day);
+		
 		for (Comic comic : comicList) {
-			episodeList.add(new Episode(comic));
+			episodeList.add(new Episode(date, comic));
 		}
-	}
-
-	private String getDay() {
-		Date date = new Date();
-		SimpleDateFormat dateForm = new SimpleDateFormat("E", Locale.ENGLISH);
-		String day = dateForm.format(date);
-
-		return day;
 	}
 
 	public List<Episode> getEpisodeList() {
 		return episodeList;
+	}
+
+	public void setRepository(ComicRepository comicRepository) {
+		this.comicRepository = comicRepository;
+	}
+
+	public DateManager getDateManager() {
+		return dateManager;
+	}
+
+	public void setDateManager(DateManager dateManager) {
+		this.dateManager = dateManager;
 	}
 	
 }

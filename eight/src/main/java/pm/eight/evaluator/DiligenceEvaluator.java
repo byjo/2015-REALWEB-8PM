@@ -32,12 +32,13 @@ public class DiligenceEvaluator {
 		
 		String comicPageLink = comic.getLink();
 		ComicPageDTO comicPageDTO = crawler.crawlComicPage(comicPageLink);
-		
+		System.out.println(comicPageLink);
 		String episodePageLink = comicPageDTO.getLatestLink();
 		EpisodePageDTO episodePageDTO = crawler.crawlEpisodePage(episodePageLink);
-		
+		System.out.println(episodePageLink);
 		//Test시 필요
-		//episode.setCreateDate(new Date());
+//		episode.setCreateDate(new Date());
+
 		long delayTime;
 		if ((delayTime = dateManager.calculateDelayTime(episode.getCreateDate())) > 0) {
 			episode.setDelayTime(delayTime);
@@ -46,6 +47,7 @@ public class DiligenceEvaluator {
 			episode.setWebtookStateCode(WebtoonStateType.PUBLISH);
 		}
 
+		System.out.println("?????");
 		episode.setLink(episodePageLink);
 		episode.setAmount(episodePageDTO.getAmount());
 		episodeRepository.save(episode);
