@@ -2,6 +2,8 @@ package pm.eight;
 
 import java.util.Date;
 
+import javax.annotation.Resource;
+
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
@@ -17,7 +19,7 @@ public class RunScheduler {
 	@Autowired
 	private JobLauncher jobLauncher;
 
-	@Autowired
+	@Resource(name = "reportJob")
 	private Job job;
 
 	public void run() {

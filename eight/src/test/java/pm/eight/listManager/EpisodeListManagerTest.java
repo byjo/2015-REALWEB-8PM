@@ -53,7 +53,7 @@ public class EpisodeListManagerTest {
 		Mockito.when(dateManager.getMidnightDate()).thenReturn(new Date());
 		
 		List<Comic> comics = new ArrayList<Comic>();
-		comics.add(new Comic("link", "thumbnail_uri", "example title"));
+		comics.add(new Comic("link", "Tue", "thumbnail_uri", "example title"));
 		Mockito.when(comicRepository.findByDate("Tue")).thenReturn(comics);
 		
 		manager.updateEpisodeList();
