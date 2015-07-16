@@ -182,7 +182,7 @@ public class Episode implements Serializable {
 	@Override
 	public String toString() {
 		return "Episode [id=" + id + ", webtoonStateCode=" + webtoonStateCode
-				+ ", title=" + title + ", link=" + link + ", comic=" + comic
+				+ ", title=" + title + ", link=" + link + ", createDate=" + createDate + ", comic=" + comic
 				+ "]";
 	}
 	

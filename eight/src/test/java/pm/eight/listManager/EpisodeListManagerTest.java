@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
@@ -49,13 +50,14 @@ public class EpisodeListManagerTest {
 	@Test
 	public void updateListTest() {
 		Mockito.when(dateManager.getDayOfWeek()).thenReturn("Tue");
+		Mockito.when(dateManager.getMidnightDate()).thenReturn(new Date());
 		
 		List<Comic> comics = new ArrayList<Comic>();
-		comics.add(new Comic("link", "thumbnail_uri", "example title" ,"EVERY"));
+		comics.add(new Comic("link", "thumbnail_uri", "example title"));
 		Mockito.when(comicRepository.findByDate("Tue")).thenReturn(comics);
 		
 		manager.updateEpisodeList();
-		logger.debug("episode list: {}", manager.getEpisodeList().toString());
+		assertEquals(comics.get(0), manager.getEpisodeList().get(3).getComic());
 	}
-
+	
 }

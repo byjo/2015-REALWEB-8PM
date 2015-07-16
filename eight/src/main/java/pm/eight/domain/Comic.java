@@ -31,11 +31,10 @@ public class Comic implements Serializable {
 		
 	}
 	
-	public Comic(String link,String thumbnail_uri,String title,WeekFrequencyType week_frequency_code) {
+	public Comic(String link,String thumbnail_uri,String title) {
 		this.link = link;
 		this.thumbnailUri = thumbnail_uri;
 		this.title = title;
-		this.weekFrequencyCode = week_frequency_code;
 	}
 	
 	@Id

@@ -1,5 +1,6 @@
 package pm.eight.listManager;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,8 +27,10 @@ public class EpisodeListManager {
 	@Autowired
 	private DateManager dateManager;
 	
-	@Scheduled(cron="0 30 22 * * ?")
+//	@Scheduled(cron="0 30 22 * * ?")
+//	public List<Episode> updateEpisodeList() {
 	public void updateEpisodeList() {
+//		episodeList = new ArrayList<Episode>();
 		dateManager.setTomorrow();
 		
 		Date date = dateManager.getMidnightDate();
@@ -37,6 +40,7 @@ public class EpisodeListManager {
 		for (Comic comic : comicList) {
 			episodeList.add(new Episode(date, comic));
 		}
+//		return episodeList;
 	}
 
 	public List<Episode> getEpisodeList() {
