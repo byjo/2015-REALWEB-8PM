@@ -1,12 +1,6 @@
 package pm.eight.evaluator;
 
 import java.io.IOException;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.temporal.Temporal;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +11,6 @@ import pm.eight.domain.Episode;
 import pm.eight.dto.ComicPageDTO;
 import pm.eight.dto.EpisodePageDTO;
 import pm.eight.enums.WebtoonStateType;
-import pm.eight.enums.WeekFrequencyType;
 import pm.eight.repository.EpisodeRepository;
 import pm.eight.util.DateManager;
 import pm.eight.util.WebtoonCrawler;
@@ -36,15 +29,17 @@ public class DiligenceEvaluator {
 
 	public void evaluate(Episode episode) throws IOException {
 		Comic comic = episode.getComic();
-
+		
 		String comicPageLink = comic.getLink();
 		ComicPageDTO comicPageDTO = crawler.crawlComicPage(comicPageLink);
-
+		
 		String episodePageLink = comicPageDTO.getLatestLink();
 		EpisodePageDTO episodePageDTO = crawler.crawlEpisodePage(episodePageLink);
-
+		
+		//Test시 필요
+		//episode.setCreateDate(new Date());
 		long delayTime;
-		if ((delayTime = dateManager.calculateDelayTime(comic.getCreateDate())) > 0) {
+		if ((delayTime = dateManager.calculateDelayTime(episode.getCreateDate())) > 0) {
 			episode.setDelayTime(delayTime);
 			episode.setWebtookStateCode(WebtoonStateType.DELAY);
 		} else {
@@ -53,7 +48,6 @@ public class DiligenceEvaluator {
 
 		episode.setLink(episodePageLink);
 		episode.setAmount(episodePageDTO.getAmount());
-
 		episodeRepository.save(episode);
 	}
 }

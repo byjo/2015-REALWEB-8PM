@@ -22,6 +22,7 @@ public class WebtoonCrawler {
 
 	private static final String REFERER = "http://imgcomic.naver.com/";
 	private static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.65 Safari/537.31";
+	private static final String NAVER_WEBTOON_URL = "http://comic.naver.com/";
 	private static final int INITIAL_HEIGHT = 0;
 
 	public EpisodePageDTO crawlEpisodePage(String episodePageLink) throws IOException {
@@ -59,14 +60,14 @@ public class WebtoonCrawler {
 	public ComicPageDTO crawlComicPage(String comicPageLink) throws IOException {
 		ComicPageDTO comicDTO = new ComicPageDTO();
 		Document doc = Jsoup.connect(comicPageLink).get();
-		comicDTO.setLatestEpisodeLink(crawlLastestEpisodeLink(doc));
+		comicDTO.setLatestEpisodeLink(crawlLatestEpisodeLink(doc));
 		return comicDTO;
 	}
 
-	private String crawlLastestEpisodeLink(Document doc) {
+	private String crawlLatestEpisodeLink(Document doc) {
 		Element aTag = doc.select(".title a").first();
-		String link = aTag.attr("href");
-		return "http://comic.naver.com/"+link;
+		String latestEpisode = aTag.attr("href");
+		return NAVER_WEBTOON_URL+latestEpisode;
 	}
 	
 	

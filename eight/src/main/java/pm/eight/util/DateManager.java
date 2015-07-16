@@ -4,7 +4,6 @@ import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
@@ -43,7 +42,7 @@ public class DateManager {
 	
 	public long calculateDelayTime(Date createDate) {
 		Instant createTime = Instant.ofEpochMilli(createDate.getTime());
-		Instant criteriaTime = date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();		
+		Instant criteriaTime = LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();		
 		Duration duration = Duration.between(criteriaTime, createTime);
 		return duration.toHours();
 	}

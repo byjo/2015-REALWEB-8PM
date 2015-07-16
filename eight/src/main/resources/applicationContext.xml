@@ -137,8 +137,11 @@
 	<task:scheduled-tasks>
 		<!-- <task:scheduled ref="runScheduler" method="run" fixed-delay="5000" 
 			/> -->
-		<task:scheduled ref="runScheduler" method="run"
+		<task:scheduled ref="comicScheduler" method="run"
 			cron="*/10 * * * * *" />
+		<task:scheduled ref="episodeScheduler" method="run"
+			cron="0 30 22 * * *" />
+
 	</task:scheduled-tasks>
 
 

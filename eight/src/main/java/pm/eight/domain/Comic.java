@@ -8,8 +8,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,8 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import pm.eight.enums.WeekFrequencyType;
 
 @Entity
 @Table(name = "comics")
@@ -58,10 +54,6 @@ public class Comic implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.comic", cascade = CascadeType.ALL)
 	private Set<AuthorComic> authorComics = new HashSet<AuthorComic>(0);
 
-//	@Enumerated(EnumType.STRING)
-//	@Column(name = "week_frequency_code", length = 20, nullable = false)
-//	private WeekFrequencyType weekFrequencyCode;
-
 	@Column(name = "week", nullable = true)
 	private String week;
 
@@ -73,8 +65,7 @@ public class Comic implements Serializable {
 	@Column(name = "modify_date", nullable = true)
 	private Date modifyDate;
 
-
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -122,14 +113,6 @@ public class Comic implements Serializable {
 	public void setAuthorComics(Set<AuthorComic> authorComics) {
 		this.authorComics = authorComics;
 	}
-
-//	public WeekFrequencyType getWeekFrequencyCode() {
-//		return weekFrequencyCode;
-//	}
-//
-//	public void setWeekFrequencyCode(WeekFrequencyType weekFrequencyCode) {
-//		this.weekFrequencyCode = weekFrequencyCode;
-//	}
 
 	public String getWeek() {
 		return week;
