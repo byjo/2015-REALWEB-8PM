@@ -13,7 +13,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
@@ -23,8 +26,10 @@ import pm.eight.evaluator.DiligenceEvaluator;
 import pm.eight.repository.EpisodeRepository;
 
 @Component
-public class PublishChecker extends QuartzJobBean {
-
+public class PublishChecker {
+//public class PublishChecker extends QuartzJobBean {
+	private static final Logger logger = LoggerFactory
+			.getLogger(PublishChecker.class);
 	@Resource(name = "episodeList")
 	private List<Episode> episodeList; 
 
@@ -37,9 +42,11 @@ public class PublishChecker extends QuartzJobBean {
 	private final String PUBLISH_CHECKER_URI = "http://comic.naver.com/webtoon/weekday.nhn";
 	private final String LIST_SELECTOR = ".col_selected ul li > div.thumb > a";
 
-	@Override
-	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
+	@Scheduled(cron="0 27 15 * * ?")
+	//protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
+	protected void executeInternal() {
 		Map<String, WebtoonStateType> epStateList = getEpisodeStateList();
+		logger.debug("episodeList: {}", episodeList);
 		for (Episode episode : episodeList) {
 			// 연재 상태이면 evaluator에게, 휴재상태이면
 			WebtoonStateType state = epStateList.get(episode.getComic().getTitle());

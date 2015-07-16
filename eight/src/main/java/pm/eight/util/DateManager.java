@@ -35,7 +35,7 @@ public class DateManager {
 	}
 
 	public void setTomorrow() {
-		this.date.plusDays(1);
+		date = date.plusDays(1);
 	}
 	
 	public String getDayOfWeek() {

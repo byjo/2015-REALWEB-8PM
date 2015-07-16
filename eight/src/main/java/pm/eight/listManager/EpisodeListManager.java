@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -17,7 +19,8 @@ import pm.eight.util.DateManager;
 
 @Component
 public class EpisodeListManager {
-	
+	private static final Logger logger = LoggerFactory
+			.getLogger(EpisodeListManager.class);
 	@Resource(name="episodeList")
 	private List<Episode> episodeList;
 	
@@ -27,9 +30,10 @@ public class EpisodeListManager {
 	@Autowired
 	private DateManager dateManager;
 	
-	@Scheduled(cron="0 15 14 * * ?")
+	@Scheduled(cron="0 26 15 * * ?")
 	public void updateEpisodeList() {
 		System.out.println("Q!!!!");
+		dateManager.initDate();
 		dateManager.setTomorrow();
 		
 		Date date = dateManager.getMidnightDate();
@@ -37,7 +41,12 @@ public class EpisodeListManager {
 		List<Comic> comicList = comicRepository.findByDate(day);
 		
 		for (Comic comic : comicList) {
-			episodeList.add(new Episode(date, comic));
+			Episode episode = new Episode(date, comic);
+			
+			episodeList.add(episode);
+			//episodeList.add(new Episode(date, comic));
+			logger.debug("episode: {}", episode.toString());
+			logger.debug("episodeList: {}", episodeList);
 		}
 	}
 

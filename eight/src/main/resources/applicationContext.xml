@@ -123,7 +123,6 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
 	<util:list id="episodeList">
-		<value>test</value>
 	</util:list>
 
 
@@ -134,6 +133,9 @@
 			/> -->
 		 <task:scheduled ref="runScheduler" method="run" cron="0 0 0 1 1 *" />
 	</task:scheduled-tasks>
-
+	
+	<task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
+	<task:executor id="myExecutor" pool-size="5"/>
+	<task:scheduler id="myScheduler" pool-size="10"/>
 
 </beans>
