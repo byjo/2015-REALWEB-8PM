@@ -2,6 +2,7 @@ package pm.eight.checker;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -42,28 +43,31 @@ public class PublishChecker {
 	private final String PUBLISH_CHECKER_URI = "http://comic.naver.com/webtoon/weekday.nhn";
 	private final String LIST_SELECTOR = ".col_selected ul li > div.thumb > a";
 
-	@Scheduled(cron="0 27 15 * * ?")
+	@Scheduled(cron="15 34 17 * * ?")
 	//protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 	protected void executeInternal() {
 		Map<String, WebtoonStateType> epStateList = getEpisodeStateList();
-		logger.debug("episodeList: {}", episodeList);
-		for (Episode episode : episodeList) {
+		logger.debug("다혜 episodeList size: {} element: {}", episodeList.size(), episodeList);
+		for (Iterator<Episode> iterator = episodeList.iterator(); iterator.hasNext();) {
 			// 연재 상태이면 evaluator에게, 휴재상태이면
+			Episode episode = iterator.next();
 			WebtoonStateType state = epStateList.get(episode.getComic().getTitle());
 			if (state == WebtoonStateType.PUBLISH) {
 				try {
+					logger.debug("evaluate episode : {}", episode.toString());
 					diligenceEvaluator.evaluate(episode);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				episodeList.remove(episode);
+				iterator.remove();
+				
 				continue;
 			}
 
 			if (state == WebtoonStateType.SUSPEND) {
 				episode.setWebtookStateCode(WebtoonStateType.SUSPEND);
 				episodeRepository.save(episode);
-				episodeList.remove(episode);
+				iterator.remove();
 			}
 		}
 	}

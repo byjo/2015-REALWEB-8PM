@@ -131,7 +131,7 @@
 	<task:scheduled-tasks>
 		<!-- <task:scheduled ref="runScheduler" method="run" fixed-delay="5000" 
 			/> -->
-		 <task:scheduled ref="runScheduler" method="run" cron="0 0 0 1 1 *" />
+		 <task:scheduled ref="runScheduler" method="run" cron="0 51 15 * * *" />
 	</task:scheduled-tasks>
 	
 	<task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>

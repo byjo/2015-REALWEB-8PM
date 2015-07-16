@@ -30,11 +30,11 @@ public class EpisodeListManager {
 	@Autowired
 	private DateManager dateManager;
 	
-	@Scheduled(cron="0 26 15 * * ?")
+	@Scheduled(cron="0 34 17 * * ?")
 	public void updateEpisodeList() {
 		System.out.println("Q!!!!");
 		dateManager.initDate();
-		dateManager.setTomorrow();
+//		dateManager.setTomorrow();
 		
 		Date date = dateManager.getMidnightDate();
 		String day = dateManager.getDayOfWeek();
@@ -46,7 +46,7 @@ public class EpisodeListManager {
 			episodeList.add(episode);
 			//episodeList.add(new Episode(date, comic));
 			logger.debug("episode: {}", episode.toString());
-			logger.debug("episodeList: {}", episodeList);
+			logger.debug("나 episodeList: {}", episodeList);
 		}
 	}
 

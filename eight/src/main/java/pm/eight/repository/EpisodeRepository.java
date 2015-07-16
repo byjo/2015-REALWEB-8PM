@@ -11,6 +11,7 @@ import pm.eight.domain.Episode;
 public class EpisodeRepository extends AbstractRepository{
 
 	public Episode findLatestEpisode() {
+		
 		Query query = getSession().createQuery("from Episode where id = 1");
 		System.out.println(query.list());
 		

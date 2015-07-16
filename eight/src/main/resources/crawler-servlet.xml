@@ -80,8 +80,8 @@
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
-	<util:list id="episodeList">
-	</util:list>
+<!-- 	<util:list id="episodeList">
+	</util:list> -->
 	
 
 	

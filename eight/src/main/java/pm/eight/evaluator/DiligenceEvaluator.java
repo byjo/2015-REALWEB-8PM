@@ -30,7 +30,7 @@ public class DiligenceEvaluator {
 	public void evaluate(Episode episode) throws IOException {
 		Comic comic = episode.getComic();
 		
-		String comicPageLink = comic.getLink();
+		String comicPageLink = "http://comic.naver.com" + comic.getLink();
 		ComicPageDTO comicPageDTO = crawler.crawlComicPage(comicPageLink);
 		System.out.println(comicPageLink);
 		String episodePageLink = comicPageDTO.getLatestLink();
@@ -48,8 +48,13 @@ public class DiligenceEvaluator {
 		}
 
 		System.out.println("?????");
+		episode.setTitle("제1화 ㅋ");
+		System.out.println(episodePageLink);
 		episode.setLink(episodePageLink);
 		episode.setAmount(episodePageDTO.getAmount());
+		System.out.println(episode.getLink());
+		System.out.println(episode.toString());
+		
 		episodeRepository.save(episode);
 	}
 }

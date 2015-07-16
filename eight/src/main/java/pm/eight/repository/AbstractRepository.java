@@ -27,6 +27,7 @@ public abstract class AbstractRepository<T> {
 	}
 
 	public void save(T item) {
+		getSession().flush();
 		getSession().save(item);
 	}
 
