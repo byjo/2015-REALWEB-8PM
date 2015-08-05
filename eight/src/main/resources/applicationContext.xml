@@ -110,6 +110,7 @@
 		<!-- spring based scanning for entity classes> -->
 		<property name="packagesToScan" value="pm.eight.domain" />
 	</bean>
+	
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
 	<util:list id="episodeList">
